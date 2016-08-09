@@ -1,11 +1,40 @@
 module RNX.Props where
 
 import Prelude
-import Control.Monad.Eff (Eff())
+import Control.Monad.Eff (Eff)
 import Data.Function.Uncurried (mkFn3, mkFn4)
-import React (ReactElement(), Event(), EventHandlerContext(), handle)
-import React.DOM.Props (Props(), unsafeMkProps)
-import RNX.Components (ListViewDataSource())
+import RNX.Components (ListViewDataSource)
+import React (ReactElement, Event, EventHandlerContext, handle)
+import React.DOM.Props (Props, unsafeMkProps)
+import Data.Maybe (Maybe)
+
+type ViewProps = {
+  accessibilityLabel :: String,
+  accessible :: Boolean,
+  hitSlop :: {top :: Int, left :: Int, bottom :: Int, right :: Int},
+  onAccessibilityTap :: (Unit -> Unit), -- TODO: Check the function
+  onLayout :: (Unit-> Unit),
+  onMagicTap :: (Unit -> Unit),
+  onMoveShouldSetResponder :: Maybe (Unit -> Unit),
+  onMoveShouldSetResponderCapture :: Maybe (Unit -> Unit)
+}
+
+type ActivityIndicatorProps = {
+  animating :: Boolean,
+  color :: String, -- COLOR
+  size :: String, -- SIZE enum
+  hidesWhenStopped :: Boolean
+}
+
+activityIndicatorProps :: ActivityIndicatorProps
+activityIndicatorProps = {
+  animating : true,
+  color : "gray",
+  size : "small",
+  hidesWhenStopped : true
+}
+
+
 
 type RenderRowFn = forall rowData highlightFn. rowData -> String -> String -> highlightFn -> ReactElement
 type RenderSeparatorFn = String -> String -> Boolean -> ReactElement
