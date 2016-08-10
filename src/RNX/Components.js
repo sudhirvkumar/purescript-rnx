@@ -3,7 +3,7 @@
 // module ReactNative.Components
 
 exports.activityIndicatorClass = require('react-native').ActivityIndicator
-exports.activityIndicatorIOSClass = require('react-native').ActivityIndicatorIOS
+// exports.activityIndicatorIOSClass = require('react-native').ActivityIndicatorIOS
 // exports.artClass = require('react-native').ART
 exports.datePickerIOSClass = require('react-native').DatePickerIOS
 exports.drawerLayoutAndroidClass = require('react-native').DrawerLayoutAndroid

@@ -16,7 +16,7 @@ foreign import listViewDataSource :: forall a. (Eq a) => Array a -> ListViewData
 foreign import cloneWithRows :: forall a. ListViewDataSource -> Array a -> ListViewDataSource
 
 foreign import activityIndicatorClass :: forall props. ReactClass props
-foreign import activityIndicatorIOSClass :: forall props. ReactClass props
+-- foreign import activityIndicatorIOSClass :: forall props. ReactClass props
 -- foreign import artClass :: forall props. ReactClass props
 foreign import datePickerIOSClass :: forall props. ReactClass props
 foreign import drawerLayoutAndroidClass :: forall props. ReactClass props
@@ -63,8 +63,8 @@ foreign import webViewClass :: forall props. ReactClass props
 activityIndicator :: Array Props -> Array ReactElement -> ReactElement
 activityIndicator = createElement activityIndicatorClass
 
-activityIndicatorIOS :: Array Props -> Array ReactElement -> ReactElement
-activityIndicatorIOS = createElement activityIndicatorIOSClass
+-- activityIndicatorIOS :: Array Props -> Array ReactElement -> ReactElement
+-- activityIndicatorIOS = createElement activityIndicatorIOSClass
 
 datePickerIOS :: Array Props -> Array ReactElement -> ReactElement
 datePickerIOS = createElement datePickerIOSClass

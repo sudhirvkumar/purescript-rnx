@@ -6,34 +6,153 @@ import Data.Function.Uncurried (mkFn3, mkFn4)
 import RNX.Components (ListViewDataSource)
 import React (ReactElement, Event, EventHandlerContext, handle)
 import React.DOM.Props (Props, unsafeMkProps)
-import Data.Maybe (Maybe)
+import Data.Maybe (Maybe(..))
 
 type ViewProps = {
   accessibilityLabel :: String,
   accessible :: Boolean,
   hitSlop :: {top :: Int, left :: Int, bottom :: Int, right :: Int},
-  onAccessibilityTap :: (Unit -> Unit), -- TODO: Check the function
-  onLayout :: (Unit-> Unit),
-  onMagicTap :: (Unit -> Unit),
+  onAccessibilityTap :: Maybe (Unit -> Unit), -- TODO: Check the function
+  onLayout :: Maybe (Unit-> Unit),
+  onMagicTap :: Maybe (Unit -> Unit),
   onMoveShouldSetResponder :: Maybe (Unit -> Unit),
-  onMoveShouldSetResponderCapture :: Maybe (Unit -> Unit)
+  onMoveShouldSetResponderCapture :: Maybe (Unit -> Unit),
+  onResponderGrant :: Maybe (Unit -> Unit),
+  onResponderMove :: Maybe (Unit -> Unit),
+  onResponderReject :: Maybe (Unit -> Unit),
+  onResponderRelease :: Maybe (Unit -> Unit),
+  onResponderTerminate :: Maybe (Unit -> Unit),
+  onResponderTerminationRequest :: Maybe (Unit -> Unit),
+  onStartShouldSetResponder :: Maybe (Unit -> Unit),
+  onStartShouldSetResponderCapture :: Maybe (Unit -> Unit),
+  pointerEvents :: String,
+  removeClippedSubviews :: Boolean,
+  style :: String,  -- STYLE
+  testID :: String,
+  accessibilityComponentType :: String,
+  accessibilityLiveRegion :: String,
+  collapsable :: Boolean,
+  importantForAccisibility :: String,
+  needsOffscreenAlphaComposition :: Boolean,
+  renderToHardwareTextureAndroid :: Boolean,
+  accessibilityTraits :: String,
+  shouldRasterizeIOS :: Boolean
 }
 
+
 type ActivityIndicatorProps = {
+  -- Begin ViewProps
+  accessibilityLabel :: String,
+  accessible :: Boolean,
+  hitSlop :: {top :: Int, left :: Int, bottom :: Int, right :: Int},
+  onAccessibilityTap :: Maybe (Unit -> Unit), -- TODO: Check the function
+  onLayout :: Maybe (Unit-> Unit),
+  onMagicTap :: Maybe (Unit -> Unit),
+  onMoveShouldSetResponder :: Maybe (Unit -> Unit),
+  onMoveShouldSetResponderCapture :: Maybe (Unit -> Unit),
+  onResponderGrant :: Maybe (Unit -> Unit),
+  onResponderMove :: Maybe (Unit -> Unit),
+  onResponderReject :: Maybe (Unit -> Unit),
+  onResponderRelease :: Maybe (Unit -> Unit),
+  onResponderTerminate :: Maybe (Unit -> Unit),
+  onResponderTerminationRequest :: Maybe (Unit -> Unit),
+  onStartShouldSetResponder :: Maybe (Unit -> Unit),
+  onStartShouldSetResponderCapture :: Maybe (Unit -> Unit),
+  pointerEvents :: String,
+  removeClippedSubviews :: Boolean,
+  style :: String,  -- STYLE
+  testID :: String,
+  accessibilityComponentType :: String,
+  accessibilityLiveRegion :: String,
+  collapsable :: Boolean,
+  importantForAccisibility :: String,
+  needsOffscreenAlphaComposition :: Boolean,
+  renderToHardwareTextureAndroid :: Boolean,
+  accessibilityTraits :: String,
+  shouldRasterizeIOS :: Boolean,
+  -- End ViewProps
+
   animating :: Boolean,
   color :: String, -- COLOR
   size :: String, -- SIZE enum
   hidesWhenStopped :: Boolean
 }
 
+
+viewProps :: ViewProps
+viewProps = {
+  accessibilityLabel : "",
+  accessible : true,
+  hitSlop : {top : 1, left : 1, bottom : 1, right : 1},
+  onAccessibilityTap : Nothing,
+  onLayout : Nothing,
+  onMagicTap : Nothing,
+  onMoveShouldSetResponder : Nothing,
+  onMoveShouldSetResponderCapture : Nothing,
+  onResponderGrant : Nothing,
+  onResponderMove : Nothing,
+  onResponderReject : Nothing,
+  onResponderRelease : Nothing,
+  onResponderTerminate : Nothing,
+  onResponderTerminationRequest : Nothing,
+  onStartShouldSetResponder : Nothing,
+  onStartShouldSetResponderCapture : Nothing,
+  pointerEvents : "",
+  removeClippedSubviews : true,
+  style : "",  -- STYLE
+  testID : "",
+  accessibilityComponentType : "",
+  accessibilityLiveRegion : "",
+  collapsable : true,
+  importantForAccisibility : "",
+  needsOffscreenAlphaComposition : true,
+  renderToHardwareTextureAndroid : true,
+  accessibilityTraits : "",
+  shouldRasterizeIOS : false
+}
+
+
 activityIndicatorProps :: ActivityIndicatorProps
 activityIndicatorProps = {
+  -- Begin ViewProps
+  accessibilityLabel : "",
+  accessible : true,
+  hitSlop : {top : 1, left : 1, bottom : 1, right : 1},
+  onAccessibilityTap : Nothing,
+  onLayout : Nothing,
+  onMagicTap : Nothing,
+  onMoveShouldSetResponder : Nothing,
+  onMoveShouldSetResponderCapture : Nothing,
+  onResponderGrant : Nothing,
+  onResponderMove : Nothing,
+  onResponderReject : Nothing,
+  onResponderRelease : Nothing,
+  onResponderTerminate : Nothing,
+  onResponderTerminationRequest : Nothing,
+  onStartShouldSetResponder : Nothing,
+  onStartShouldSetResponderCapture : Nothing,
+  pointerEvents : "",
+  removeClippedSubviews : true,
+  style : "",  -- STYLE
+  testID : "",
+  accessibilityComponentType : "",
+  accessibilityLiveRegion : "",
+  collapsable : true,
+  importantForAccisibility : "",
+  needsOffscreenAlphaComposition : true,
+  renderToHardwareTextureAndroid : true,
+  accessibilityTraits : "",
+  shouldRasterizeIOS : true,
+  -- End ViewProps
+
   animating : true,
   color : "gray",
   size : "small",
   hidesWhenStopped : true
 }
 
+-- props :: ActivityIndicatorProps
+-- props = activityIndicatorProps {animating = false, color = "white", hidesWhenStopped = false}
 
 
 type RenderRowFn = forall rowData highlightFn. rowData -> String -> String -> highlightFn -> ReactElement
