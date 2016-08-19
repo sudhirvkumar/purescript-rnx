@@ -31,8 +31,8 @@ exports.refreshControlClass = require('react-native').RefreshControl
 exports.statusBarClass = require('react-native').StatusBar
 // exports.swipeableListViewClass = require('react-native').SwipeableListView
 exports.switchClass = require('react-native').Switch
-exports.switchAndroidClass = require('react-native').SwitchAndroid
-exports.switchIOSClass = require('react-native').SwitchIOS
+// exports.switchAndroidClass = require('react-native').SwitchAndroid
+// exports.switchIOSClass = require('react-native').SwitchIOS
 exports.tabBarIOSClass = require('react-native').TabBarIOS
 exports.tabBarIOSItemClass = require('react-native').TabBarIOS.Item
 exports.textClass = require('react-native').Text
@@ -47,6 +47,10 @@ exports.touchableWithoutFeedbackClass = require('react-native').TouchableWithout
 exports.viewClass = require('react-native').View
 exports.viewPagerAndroidClass = require('react-native').ViewPagerAndroid
 exports.webViewClass = require('react-native').WebView
+
+
+// IGNORE all the code below this line
+
 
 exports.listViewDataSource = function(dict){
   return function(items){

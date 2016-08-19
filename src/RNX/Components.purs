@@ -43,8 +43,8 @@ foreign import switchClass :: forall props. ReactClass props
 foreign import refreshControlClass :: forall props. ReactClass props
 foreign import statusBarClass :: forall props. ReactClass props
 -- foreign import swipeableListViewClass :: forall props. ReactClass props
-foreign import switchAndroidClass :: forall props. ReactClass props
-foreign import switchIOSClass :: forall props. ReactClass props
+-- foreign import switchAndroidClass :: forall props. ReactClass props
+-- foreign import switchIOSClass :: forall props. ReactClass props
 foreign import tabBarIOSClass :: forall props. ReactClass props
 foreign import tabBarIOSItemClass :: forall props. ReactClass props
 foreign import textClass :: forall props. ReactClass props
@@ -135,11 +135,11 @@ snapshotViewIOS = createElement snapshotViewIOSClass
 switch :: Array Props -> Array ReactElement -> ReactElement
 switch = createElement switchClass
 
-switchAndroid :: Array Props -> Array ReactElement -> ReactElement
-switchAndroid = createElement switchAndroidClass
+-- switchAndroid :: Array Props -> Array ReactElement -> ReactElement
+-- switchAndroid = createElement switchAndroidClass
 
-switchIOS :: Array Props -> Array ReactElement -> ReactElement
-switchIOS = createElement switchIOSClass
+-- switchIOS :: Array Props -> Array ReactElement -> ReactElement
+-- switchIOS = createElement switchIOSClass
 
 tabBarIOS :: Array Props -> Array ReactElement -> ReactElement
 tabBarIOS = createElement tabBarIOSClass
