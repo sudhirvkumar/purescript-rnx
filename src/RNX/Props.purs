@@ -6,6 +6,7 @@ import Data.Function.Uncurried (mkFn3, mkFn4)
 import RNX.Components (ListViewDataSource)
 import React (ReactElement, Event, EventHandlerContext, handle)
 import React.DOM.Props (Props, unsafeMkProps)
+import RNX.PropsTypes
 
 type RenderRowFn = forall rowData highlightFn. rowData -> String -> String -> highlightFn -> ReactElement
 type RenderSeparatorFn = String -> String -> Boolean -> ReactElement
@@ -142,7 +143,7 @@ onStartShouldSetResponderCapture f = unsafeMkProps "onStartShouldSetResponderCap
 
 
 -- pointerEvents :: String
-pointerEvents :: String -> Props
+pointerEvents :: PointerEventsProp -> Props
 pointerEvents = unsafeMkProps "pointerEvents"
 
 
@@ -157,7 +158,7 @@ testID = unsafeMkProps "testID"
 -- accessibilityComponentType = unsafeMkProps "accessibilityComponentType"
 
 -- accessibilityLiveRegion :: String
-accessibilityLiveRegion :: String -> Props
+accessibilityLiveRegion :: AccessibilityLiveRegionProp -> Props
 accessibilityLiveRegion = unsafeMkProps "accessibilityLiveRegion"
 
 
@@ -166,7 +167,7 @@ collapsable :: Boolean -> Props
 collapsable = unsafeMkProps "collapsable"
 
 -- importantForAccessibility :: String
-importantForAccessibility :: String -> Props
+importantForAccessibility :: ImportantForAccessibilityProp -> Props
 importantForAccessibility = unsafeMkProps "importantForAccessibility"
 
 
@@ -218,12 +219,12 @@ maximumDate :: Boolean -> Props
 maximumDate = unsafeMkProps "maximumDate"
 
 
--- minimumDate PropTypes.instanceOf(Date) 
+-- minimumDate PropTypes.instanceOf(Date)
 minimumDate :: Boolean -> Props
 minimumDate = unsafeMkProps "minimumDate"
 
 
--- minuteInterval PropTypes.oneOf([1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30]) 
+-- minuteInterval PropTypes.oneOf([1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30])
 minuteInterval :: Boolean -> Props
 minuteInterval = unsafeMkProps "minuteInterval"
 
@@ -241,12 +242,12 @@ timeZoneOffsetInMinutes = unsafeMkProps "timeZoneOffsetInMinutes"
 
 -- DrawerLayoutAndroid Props
 
--- drawerBackgroundColor color 
+-- drawerBackgroundColor color
 drawerBackgroundColor :: Boolean -> Props
 drawerBackgroundColor = unsafeMkProps "drawerBackgroundColor"
 
 
--- drawerLockMode ReactPropTypes.oneOf([ 'unlocked', 'locked-closed', 'locked-open' ]) 
+-- drawerLockMode ReactPropTypes.oneOf([ 'unlocked', 'locked-closed', 'locked-open' ])
 drawerLockMode :: Boolean -> Props
 drawerLockMode = unsafeMkProps "drawerLockMode"
 
@@ -308,7 +309,7 @@ source = unsafeMkProps "source"
 
 -- testID PropTypes.string #
 
--- accessibilityLabel PropTypes.string 
+-- accessibilityLabel PropTypes.string
 accessibilityLabel :: Boolean -> Props
 accessibilityLabel = unsafeMkProps "accessibilityLabel"
 
@@ -849,7 +850,7 @@ stickyHeaderIndices = unsafeMkProps "stickyHeaderIndices"
 zoomScale :: Int -> Props
 zoomScale = unsafeMkProps "zoomScale"
 
--- Methods 
+-- Methods
 
 -- scrollTo(y?, x?, animated?) #
 -- scrollWithoutAnimationTo(y, x) #
@@ -1371,11 +1372,11 @@ activeOpacity = unsafeMkProps "activeOpacity"
 -- TouchableWithoutFeedback
 
 -- accessibilityComponentType View.AccessibilityComponentType #
-accessibilityComponentType :: Boolean -> Props
+accessibilityComponentType :: AccessibilityComponentTypeProp -> Props
 accessibilityComponentType = unsafeMkProps "accessibilityComponentType"
 
 -- accessibilityTraits View.AccessibilityTraits, [object Object] #
-accessibilityTraits :: Boolean -> Props
+accessibilityTraits :: Array  AccessibilityTraitsProp -> Props
 accessibilityTraits = unsafeMkProps "accessibilityTraits"
 
 -- accessible bool #
