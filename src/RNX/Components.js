@@ -77,6 +77,18 @@ exports.viewClass                     = ReactNative.View;
 exports.viewPagerAndroidClass         = ReactNative.ViewPagerAndroid;
 exports.webViewClass                  = ReactNative.WebView;
 
+//NavigationExperimental
+exports.NavigationCard         = ReactNative.NavigationCard;
+exports.NavigationCardStack    = ReactNative.NavigationCardStack;
+exports.NavigationHeader       = ReactNative.NavigationHeader;
+exports.NavigationStateUtils   = ReactNative.NavigationStateUtils;
+exports.NavigationTransitioner = ReactNative.NavigationTransitioner;
+
+
+
+
+
+
 function mkProps(props) {
     var result = {};
     for (var i = 0, len = props.length; i < len; i++) {
