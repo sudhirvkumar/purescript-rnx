@@ -15,7 +15,6 @@ import Signal (Signal, (~>), mergeMany, foldp, runSignal)
 import Signal.Channel (CHANNEL, Channel, channel, subscribe, send)
 import RNX.Components (Element)
 
-
 -- | AppKey : Used to define the application name which will be registered with React Native
 type AppKey = String
 

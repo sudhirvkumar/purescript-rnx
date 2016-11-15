@@ -1,7 +1,5 @@
 'use strict';
 
-// module ReactNative.Styles
-
 exports._createStyleSheet = function(styleSheet){
     var stylesObj = {};
     styleSheet.forEach(function(s){
@@ -15,8 +13,6 @@ exports._createStyleSheet = function(styleSheet){
     });
     return require('react-native').StyleSheet.create(stylesObj);
 };
-
-
 
 var _createStyleSheet1 = function(styles){
     var stylesObj = {};
@@ -35,7 +31,7 @@ exports.getStyleId = function(styleSheet){
     };
 };
 
-exports.unsafeMkStyleProp = function(key) {
+exports.mkStyleProp = function(key) {
     return function(value) {
         var obj = {};
         obj[key] = value;

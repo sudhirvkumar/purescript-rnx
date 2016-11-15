@@ -1,20 +1,26 @@
 'use strict';
 
-exports.unsafeMkProps = function(key) {
+exports.mkProps = function(key) {
     return function(val){
-        var o = {};
-        o[key] = val;
-        return o;
+        var obj = {
+            type: 'prop',
+            key: key,
+            val: val
+        };
+        console.log(JSON.stringify(obj));
+        return obj;
     };
 };
 
-exports.unsafeMkFnProps = function(key) {
+exports.mkFnProps = function(key) {
     return function(val){
-        var o = {};
-        var val1 = val;
-        o[key] = function(){return val1;};
-        console.log("obj["+key+"]: " + o[key]);
-        return o;
+        var obj = {
+            type: 'prop-function',
+            key: key,
+            val: val
+        };
+        console.log(JSON.stringify(obj));
+        return obj;
     };
 };
 

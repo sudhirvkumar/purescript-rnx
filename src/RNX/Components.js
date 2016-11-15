@@ -6,7 +6,15 @@ var ReactNative = require('react-native');
 exports.createElement = function(clazz) {
     return function(props) {
         return function(children) {
-            return React.createElement(clazz, props.length > 0 ? mkProps(props) : null, children);
+            var obj =
+                { type: 'element',
+                  clazz: clazz,
+                  props: props,
+                  children: children
+                };
+            console.log(JSON.stringify(obj));
+            return obj;
+            //React.createElement(clazz, props.length > 0 ? mkProps(props) : null, children);
         };
     };
 };
@@ -14,33 +22,48 @@ exports.createElement = function(clazz) {
 exports.createElementOneChild = function(clazz) {
     return function(props) {
         return function(child) {
-            console.log(child);
-            var elm = React.createElement(clazz, props.length > 0 ? mkProps(props) : null, child);
-            //console.log(elm);
-            return elm;
+            //var elm = React.createElement(clazz, props.length > 0 ? mkProps(props) : null, child);
+            var obj =
+                { type: 'elementOneChild',
+                  clazz: clazz,
+                  props: props,
+                  child: child
+                };
+            console.log(JSON.stringify(obj));
+            return obj;
         };
     };
 };
 
-var handler = function (key, action) {
-    //console.log(key);
-    //console.log(action);
-    var obj = {};
-    obj [key] =  function (input, parentAction) {
-        var fn = function (ev) {
-            console.log("action " + action  + "called with ev:" + ev);
-            input(parentAction(action(ev)))();
-        };
-        console.log("function created with parentAction: " + parentAction + " input: " + input + " key: " + key + " action: " + action + " fn: " + fn);
-        return fn;
+exports.createElementNoChild = function(clazz) {
+    return function(props) {
+        //var elm = React.createElement(clazz, props.length > 0 ? mkProps(props) : null, child);
+        var obj =
+            { type: 'elementNoChild',
+              clazz: clazz,
+              props: props
+            };
+        console.log(JSON.stringify(obj));
+        return obj;
     };
-    return obj;
+};
+
+var handler = function (key) {
+    return function(action){
+        var obj =
+            { type: 'handler',
+              key: key,
+              action: action
+            };
+        console.log(JSON.stringify(obj));
+        return obj;
+    };
+
 };
 
 exports.handler = handler;
 exports.handlerBool = handler;
 exports.handlerUnit = handler;
-
 
 exports.textElem = function(text) {
     return text;
@@ -79,39 +102,42 @@ exports.viewClass                     = ReactNative.View;
 exports.viewPagerAndroidClass         = ReactNative.ViewPagerAndroid;
 exports.webViewClass                  = ReactNative.WebView;
 
-function mkProps(props) {
-    var result = {};
-    for (var i = 0, len = props.length; i < len; i++) {
-        var prop = props[i];
-        for (var key in prop) {
-            if (prop.hasOwnProperty(key)) {
-                result[key] = prop[key];
-            }
-        }
-    }
-    return result;
-};
+// function mkProps(props) {
+//     var result = {};
+//     for (var i = 0, len = props.length; i < len; i++) {
+//         var prop = props[i];
+//         if (prop.type === 'prop'){
+//             result[prop.key] = prop.val;
+//         } else if (prop.type==='prop-function') {
+//             result[prop.key] = function(){return val;};
+//         }
+//     }
+//     return result;
+// };
 
 
 // :: (a -> b) -> Html a -> Html b
 exports.forwardTo = function (parentAction) {
-    return function (html) {
-        if (!html.props) return html;
-        var childAction = html.props.puxParentAction;
+    return function (element) {
+        //if (!html.props) return html;
+        var childAction = element.parentAction;
         var action = parentAction;
         if (childAction) {
             action = function (a) {
                 return parentAction(childAction(a));
             };
         }
-        return React.cloneElement(html, { puxParentAction: action });
+        element['parentAction'] = action;
+        return element;
     };
 };
 
+
+//TODO: work on this...
 // :: (a -> b) -> Attribute a -> Attribute b
 exports.mapAttribute = function (f) {
     return function (attr) {
-        if (typeof attr[1] !== 'function') {
+        if (attr.type !== 'handler') {
             return attr;
         }
         return [attr[0], function(input, parentAction) {

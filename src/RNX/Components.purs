@@ -1,8 +1,6 @@
 module RNX.Components where
 
 import Prelude
-import Data.Function.Uncurried (Fn2)
-
 
 foreign import data ReactClass :: * -> *
 foreign import data Element :: * -> *
@@ -14,15 +12,16 @@ foreign import mapAttribute :: forall a b. (a -> b) -> Prop a -> Prop b
 
 
 instance functorElement :: Functor Element where
-  map f x = forwardTo f x
+  map = forwardTo
 
 instance functorAttribute :: Functor Prop where
-  map f x = mapAttribute f x
+  map = mapAttribute
 
 
 -- createElement
 foreign import createElement         :: forall props action. ReactClass props -> props -> Array (Element action)-> Element action
 foreign import createElementOneChild :: forall props action. ReactClass props -> props -> Element action -> Element action
+foreign import createElementNoChild :: forall props action. ReactClass props -> props -> Element action
 
 -- classes
 foreign import activityIndicatorClass        :: forall props. ReactClass props
@@ -62,20 +61,20 @@ foreign import webViewClass                  :: forall props. ReactClass props
 foreign import textElem :: forall action. String -> Element action
 
 
-foreign import handler :: forall event action. Fn2 String (event -> action) (Prop action)
-foreign import handlerBool :: forall event action. Fn2 String (event -> Boolean) (Prop action)
-foreign import handlerUnit :: forall event action. Fn2 String (event -> Unit) (Prop action)
+foreign import handler     :: forall event action. String -> (event -> action) -> (Prop action)
+foreign import handlerBool :: forall event action. String -> (event -> Boolean) -> (Prop action)
+foreign import handlerUnit :: forall event action. String -> (event -> Unit) -> (Prop action)
 
 
 -- ActivityIndicator doesn't have any children
 activityIndicator :: forall action. Array (Prop action) -> Element action
-activityIndicator props = createElement activityIndicatorClass props []
+activityIndicator = createElementNoChild activityIndicatorClass
 
 button :: forall action. Array (Prop action) -> Element action
-button props = createElement buttonClass props []
+button = createElementNoChild buttonClass
 
 datePickerIOS :: forall action. Array (Prop action) -> Element action
-datePickerIOS props = createElement datePickerIOSClass props []
+datePickerIOS = createElementNoChild datePickerIOSClass
 
 drawerLayoutAndroid :: forall action. Array (Prop action) -> Array (Element action) -> Element action
 drawerLayoutAndroid = createElement drawerLayoutAndroidClass
@@ -87,10 +86,10 @@ keyboardAvoidingView :: forall action. Array (Prop action) -> Array (Element act
 keyboardAvoidingView = createElement keyboardAvoidingViewClass
 
 listView :: forall action. Array (Prop action) -> Element action
-listView props = createElement listViewClass props []
+listView = createElementNoChild listViewClass
 
 mapView :: forall action. Array (Prop action) ->  Element action
-mapView props = createElement mapViewClass props []
+mapView = createElementNoChild mapViewClass
 
 modal :: forall action. Array (Prop action) -> Array (Element action) -> Element action
 modal = createElement modalClass
@@ -99,46 +98,46 @@ picker :: forall action. Array (Prop action) -> Array (Element action) -> Elemen
 picker = createElement pickerClass
 
 pickerItem :: forall action. Array (Prop action) -> Element action
-pickerItem props = createElement pickerItemClass props []
+pickerItem = createElementNoChild pickerItemClass
 
 progressBarAndroid :: forall action. Array (Prop action) -> Element action
-progressBarAndroid props = createElement progressBarAndroidClass props []
+progressBarAndroid = createElementNoChild progressBarAndroidClass
 
 progressViewIOS :: forall action. Array (Prop action) -> Element action
-progressViewIOS props = createElement progressViewIOSClass props []
+progressViewIOS = createElementNoChild progressViewIOSClass
 
 refreshControl' :: forall action. Array (Prop action) -> Element action
-refreshControl' props = createElement refreshControlClass props []
+refreshControl' = createElementNoChild refreshControlClass
 
 scrollView :: forall action. Array (Prop action) -> Array (Element action) -> Element action
 scrollView = createElement scrollViewClass
 
 segmentedControlIOS :: forall action. Array (Prop action) -> Element action
-segmentedControlIOS props = createElement segmentedControlIOSClass props []
+segmentedControlIOS = createElementNoChild segmentedControlIOSClass
 
 slider :: forall action. Array (Prop action) -> Element action
-slider props = createElement sliderClass props []
+slider = createElementNoChild sliderClass
 
 statusBar :: forall action. Array (Prop action) -> Element action
-statusBar props = createElement statusBarClass props []
+statusBar = createElementNoChild statusBarClass
 
 snapshotViewIOS :: forall action. Array (Prop action) -> Element action
-snapshotViewIOS props = createElement snapshotViewIOSClass props []
+snapshotViewIOS = createElementNoChild snapshotViewIOSClass
 
 switch :: forall action. Array (Prop action) ->  Element action
-switch props = createElement switchClass props []
+switch = createElementNoChild switchClass
 
 tabBarIOS :: forall action. Array (Prop action) -> Array (Element action) -> Element action
 tabBarIOS = createElement tabBarIOSClass
 
 tabBarIOSItem :: forall action. Array (Prop action) -> Element action
-tabBarIOSItem props = createElement tabBarIOSItemClass props []
+tabBarIOSItem = createElementNoChild tabBarIOSItemClass
 
 text :: forall action. Array (Prop action) -> Array (Element action) -> Element action
 text = createElement textClass
 
 textInput :: forall action. Array (Prop action) -> Element action
-textInput props = createElement textInputClass props []
+textInput = createElementNoChild textInputClass
 
 toolbarAndroid :: forall action. Array (Prop action) -> Array (Element action) -> Element action
 toolbarAndroid = createElement toolbarAndroidClass
@@ -162,4 +161,4 @@ viewPagerAndroid :: forall action. Array (Prop action) -> Array (Element action)
 viewPagerAndroid = createElement viewPagerAndroidClass
 
 webView :: forall action. Array (Prop action) -> Element action
-webView props = createElement webViewClass props []
+webView = createElementNoChild webViewClass

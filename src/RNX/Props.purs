@@ -1,16 +1,13 @@
 module RNX.Props where
 
-import RNX.PropsTypes
-import RNX.Components
-import Control.Monad.Eff (Eff)
+import RNX.PropsTypes (AccessibilityComponentTypeProp(..), AccessibilityLiveRegionProp(..), ImportantForAccessibilityProp(..))
+import RNX.Components (Prop, Element)
 import Data.Date (Date)
-import Data.Function.Uncurried (mkFn3, mkFn4)
-import Prelude (class Show, show, Unit, (<<<), map, (<>))
-import RNX.Color
+import Prelude
+import RNX.Color (Color)
 
-foreign import unsafeMkProps :: forall val action. String -> val -> Prop action
-
-foreign import unsafeMkFnProps :: forall val action. String -> val -> Prop action
+foreign import mkProps :: forall val action. String -> val -> Prop action
+foreign import mkFnProps :: forall val action. String -> val -> Prop action
 
 foreign import dPLeft :: forall a. a
 foreign import dPRight :: forall a. a
@@ -59,10 +56,10 @@ data Size
 
 
 pointerEvents :: forall action. PtrEvents -> Prop action
-pointerEvents PtrEventsBoxNone = unsafeMkProps "pointerEvents" "box-none"
-pointerEvents PtrEventsNone    = unsafeMkProps "pointerEvents" "none"
-pointerEvents PtrEventsBoxOnly = unsafeMkProps "pointerEvents" "box-only"
-pointerEvents PtrEventsAuto    = unsafeMkProps "pointerEvents" "auto"
+pointerEvents PtrEventsBoxNone = mkProps "pointerEvents" "box-none"
+pointerEvents PtrEventsNone    = mkProps "pointerEvents" "none"
+pointerEvents PtrEventsBoxOnly = mkProps "pointerEvents" "box-only"
+pointerEvents PtrEventsAuto    = mkProps "pointerEvents" "auto"
 
 data PtrEvents
   = PtrEventsBoxNone
@@ -72,65 +69,65 @@ data PtrEvents
 
 
 testID :: forall action. String -> Prop action
-testID = unsafeMkProps "testID"
+testID = mkProps "testID"
 
 key :: forall action. String -> Prop action
-key = unsafeMkProps "key"
+key = mkProps "key"
 
 
 -- Animating
 
 animating :: forall action. Boolean -> Prop action
-animating = unsafeMkProps "animating"
+animating = mkProps "animating"
 
 
 pColor :: forall action. Color -> Prop action
-pColor c = unsafeMkProps "color" (show c)
+pColor c = mkProps "color" (show c)
 
 accessibilityLiveRegion :: forall action. AccessibilityLiveRegionProp -> Prop action
-accessibilityLiveRegion  ALRPNone  = unsafeMkProps "accessibilityLiveRegion" "none"
-accessibilityLiveRegion  Polite    = unsafeMkProps "accessibilityLiveRegion" "none"
-accessibilityLiveRegion  Assertive = unsafeMkProps "accessibilityLiveRegion" "none"
+accessibilityLiveRegion  ALRPNone  = mkProps "accessibilityLiveRegion" "none"
+accessibilityLiveRegion  Polite    = mkProps "accessibilityLiveRegion" "none"
+accessibilityLiveRegion  Assertive = mkProps "accessibilityLiveRegion" "none"
 
 
 collapsable :: forall action. Boolean -> Prop action
-collapsable = unsafeMkProps "collapsable"
+collapsable = mkProps "collapsable"
 
 
 importantForAccessibility :: forall action. ImportantForAccessibilityProp -> Prop action
-importantForAccessibility IAPAuto           = unsafeMkProps "importantForAccessibility" "auto"
-importantForAccessibility Yes               = unsafeMkProps "importantForAccessibility" "yes"
-importantForAccessibility No                = unsafeMkProps "importantForAccessibility" "no"
-importantForAccessibility NoHideDescenDants = unsafeMkProps "importantForAccessibility" "no-hide-descendents"
+importantForAccessibility IAPAuto           = mkProps "importantForAccessibility" "auto"
+importantForAccessibility Yes               = mkProps "importantForAccessibility" "yes"
+importantForAccessibility No                = mkProps "importantForAccessibility" "no"
+importantForAccessibility NoHideDescenDants = mkProps "importantForAccessibility" "no-hide-descendents"
 
 
 needsOffscreenAlphaCompositing :: forall action. Boolean -> Prop action
-needsOffscreenAlphaCompositing = unsafeMkProps "needsOffscreenAlphaCompositing"
+needsOffscreenAlphaCompositing = mkProps "needsOffscreenAlphaCompositing"
 
 
 renderToHardwareTextureAndroid :: forall action. Boolean -> Prop action
-renderToHardwareTextureAndroid = unsafeMkProps "renderToHardwareTextureAndroid"
+renderToHardwareTextureAndroid = mkProps "renderToHardwareTextureAndroid"
 
 
 shouldRasterizeIOS :: forall action. Boolean -> Prop action
-shouldRasterizeIOS = unsafeMkProps "shouldRasterizeIOS"
+shouldRasterizeIOS = mkProps "shouldRasterizeIOS"
 
 
 
 hidesWhenStopped :: forall action. Boolean -> Prop action
-hidesWhenStopped = unsafeMkProps "hidesWhenStopped"
+hidesWhenStopped = mkProps "hidesWhenStopped"
 
 
 date :: forall action. Date -> Prop action
-date = unsafeMkProps "date"
+date = mkProps "date"
 
 
 maximumDate :: forall action. Date -> Prop action
-maximumDate = unsafeMkProps "maximumDate"
+maximumDate = mkProps "maximumDate"
 
 
 minimumDate :: forall action. Date -> Prop action
-minimumDate = unsafeMkProps "minimumDate"
+minimumDate = mkProps "minimumDate"
 
 
 data MIType
@@ -148,17 +145,17 @@ data MIType
 
 
 minuteInterval :: forall action. MIType -> Prop action
-minuteInterval MI1  = unsafeMkProps "minuteInterval" 1
-minuteInterval MI2  = unsafeMkProps "minuteInterval" 2
-minuteInterval MI3  = unsafeMkProps "minuteInterval" 3
-minuteInterval MI4  = unsafeMkProps "minuteInterval" 4
-minuteInterval MI5  = unsafeMkProps "minuteInterval" 5
-minuteInterval MI6  = unsafeMkProps "minuteInterval" 6
-minuteInterval MI10 = unsafeMkProps "minuteInterval" 10
-minuteInterval MI12 = unsafeMkProps "minuteInterval" 12
-minuteInterval MI15 = unsafeMkProps "minuteInterval" 15
-minuteInterval MI20 = unsafeMkProps "minuteInterval" 20
-minuteInterval MI30 = unsafeMkProps "minuteInterval" 30
+minuteInterval MI1  = mkProps "minuteInterval" 1
+minuteInterval MI2  = mkProps "minuteInterval" 2
+minuteInterval MI3  = mkProps "minuteInterval" 3
+minuteInterval MI4  = mkProps "minuteInterval" 4
+minuteInterval MI5  = mkProps "minuteInterval" 5
+minuteInterval MI6  = mkProps "minuteInterval" 6
+minuteInterval MI10 = mkProps "minuteInterval" 10
+minuteInterval MI12 = mkProps "minuteInterval" 12
+minuteInterval MI15 = mkProps "minuteInterval" 15
+minuteInterval MI20 = mkProps "minuteInterval" 20
+minuteInterval MI30 = mkProps "minuteInterval" 30
 
 
 data DateMode
@@ -168,17 +165,17 @@ data DateMode
 
 
 modeDate :: forall action. DateMode -> Prop action
-modeDate DMDate     = unsafeMkProps "mode" "date"
-modeDate DMTime     = unsafeMkProps "mode" "time"
-modeDate DMDateTime = unsafeMkProps "mode" "datetime"
+modeDate DMDate     = mkProps "mode" "date"
+modeDate DMTime     = mkProps "mode" "time"
+modeDate DMDateTime = mkProps "mode" "datetime"
 
 
 timeZoneOffsetInMinutes :: forall action. Int -> Prop action
-timeZoneOffsetInMinutes = unsafeMkProps "timeZoneOffsetInMinutes"
+timeZoneOffsetInMinutes = mkProps "timeZoneOffsetInMinutes"
 
 
 drawerBackgroundColor :: forall action. Color -> Prop action
-drawerBackgroundColor c = unsafeMkProps "drawerBackgroundColor" (show c)
+drawerBackgroundColor c = mkProps "drawerBackgroundColor" (show c)
 
 
 data DLM
@@ -188,9 +185,9 @@ data DLM
 
 
 drawerLockMode :: forall action. DLM -> Prop action
-drawerLockMode DLMUnlocked     = unsafeMkProps "drawerLockMode" "unlocked"
-drawerLockMode DLMLockedClosed = unsafeMkProps "drawerLockMode" "locked-closed"
-drawerLockMode DLMLockedOpen   = unsafeMkProps "drawerLockMode" "locked-open"
+drawerLockMode DLMUnlocked     = mkProps "drawerLockMode" "unlocked"
+drawerLockMode DLMLockedClosed = mkProps "drawerLockMode" "locked-closed"
+drawerLockMode DLMLockedOpen   = mkProps "drawerLockMode" "locked-open"
 
 
 data DrawerPosition
@@ -198,17 +195,17 @@ data DrawerPosition
   | DPRight
 
 drawerPosition :: forall action. DrawerPosition -> Prop action
-drawerPosition DPLeft  = unsafeMkProps "drawerPosition" dPLeft
-drawerPosition DPRight = unsafeMkProps "drawerPosition" dPRight
+drawerPosition DPLeft  = mkProps "drawerPosition" dPLeft
+drawerPosition DPRight = mkProps "drawerPosition" dPRight
 
 
 drawerWidth :: forall action. Int -> Prop action
-drawerWidth = unsafeMkProps "drawerWidth"
+drawerWidth = mkProps "drawerWidth"
 
 
 keyboardDismissModeViewAndroid :: forall action. KDMVA -> Prop action
-keyboardDismissModeViewAndroid KDMVANone   = unsafeMkProps "keyboardDismissModeViewAndroid" "none"
-keyboardDismissModeViewAndroid KDMVAOnDrag = unsafeMkProps "keyboardDismissModeViewAndroid" "on-drag"
+keyboardDismissModeViewAndroid KDMVANone   = mkProps "keyboardDismissModeViewAndroid" "none"
+keyboardDismissModeViewAndroid KDMVAOnDrag = mkProps "keyboardDismissModeViewAndroid" "on-drag"
 
 data KDMVA
   = KDMVANone
@@ -216,7 +213,7 @@ data KDMVA
 
 
 statusBarBackgroundColor :: forall action. Color -> Prop action
-statusBarBackgroundColor c = unsafeMkProps "statusBarBackgroundColor" (show c)
+statusBarBackgroundColor c = mkProps "statusBarBackgroundColor" (show c)
 
 
 data RSMode
@@ -228,11 +225,11 @@ data RSMode
 
 
 resizeMode :: forall action. RSMode -> Prop action
-resizeMode RSMCover   = unsafeMkProps "resizeMode" "cover"
-resizeMode RSMContain = unsafeMkProps "resizeMode" "contain"
-resizeMode RSMStretch = unsafeMkProps "resizeMode" "stretch"
-resizeMode RSMRepeat  = unsafeMkProps "resizeMode" "repeat"
-resizeMode RSMCenter  = unsafeMkProps "resizeMode" "center"
+resizeMode RSMCover   = mkProps "resizeMode" "cover"
+resizeMode RSMContain = mkProps "resizeMode" "contain"
+resizeMode RSMStretch = mkProps "resizeMode" "stretch"
+resizeMode RSMRepeat  = mkProps "resizeMode" "repeat"
+resizeMode RSMCenter  = mkProps "resizeMode" "center"
 
 
 data RSMD
@@ -242,20 +239,20 @@ data RSMD
 
 
 resizeMethod :: forall action. RSMD -> Prop action
-resizeMethod RSMAuto   = unsafeMkProps "resizeMethod" "auto"
-resizeMethod RSMResize = unsafeMkProps "resizeMethod" "resize"
-resizeMethod RSMScale  = unsafeMkProps "resizeMethod" "scale"
+resizeMethod RSMAuto   = mkProps "resizeMethod" "auto"
+resizeMethod RSMResize = mkProps "resizeMethod" "resize"
+resizeMethod RSMScale  = mkProps "resizeMethod" "scale"
 
 -- TODO: ImageSourcePropType
 data ImageURISourcePropType = Shape
 
 
 accessibilityLabel :: forall action. String -> Prop action
-accessibilityLabel = unsafeMkProps "accessibilityLabel"
+accessibilityLabel = mkProps "accessibilityLabel"
 
 
 blurRadius :: forall action. Int -> Prop action
-blurRadius = unsafeMkProps "blurRadius"
+blurRadius = mkProps "blurRadius"
 
 data BT
   = BTHeight
@@ -264,43 +261,43 @@ data BT
 
 
 behavior :: forall action. BT -> Prop action
-behavior BTHeight   = unsafeMkProps "behavior" "height"
-behavior BTPosition = unsafeMkProps "behavior" "position"
-behavior BTPadding  = unsafeMkProps "behavior" "padding"
+behavior BTHeight   = mkProps "behavior" "height"
+behavior BTPosition = mkProps "behavior" "position"
+behavior BTPadding  = mkProps "behavior" "padding"
 
 
 capInsets :: forall action. Box -> Prop action
-capInsets = unsafeMkProps "capInsets"
+capInsets = mkProps "capInsets"
 
 enableEmptySections :: forall action. Boolean -> Prop action
-enableEmptySections = unsafeMkProps "enableEmptySections"
+enableEmptySections = mkProps "enableEmptySections"
 
 
 initialListSize :: forall action. Int -> Prop action
-initialListSize = unsafeMkProps "initialListSize"
+initialListSize = mkProps "initialListSize"
 
 
 pageSize :: forall action. Int -> Prop action
-pageSize = unsafeMkProps "pageSize"
+pageSize = mkProps "pageSize"
 
 
 scrollRenderAheadDistance :: forall action. Int -> Prop action
-scrollRenderAheadDistance = unsafeMkProps "scrollRenderAheadDistance"
+scrollRenderAheadDistance = mkProps "scrollRenderAheadDistance"
 
 
 
 -- annotations [{latitude: number, longitude: number, animateDrop: bool, draggable: bool, onDragStateChange: function, onFocus: function, onBlur: function, title: string, subtitle: string, leftCalloutView: element, rightCalloutView: element, detailCalloutView: element, tintColor: [object Object], image: Image.propTypes.source, view: element, id: string, hasLeftCallout: deprecatedPropType( React.PropTypes.bool, 'Use `leftCalloutView` instead.' ), hasRightCallout: deprecatedPropType( React.PropTypes.bool, 'Use `rightCalloutView` instead.' ), onLeftCalloutPress: deprecatedPropType( React.PropTypes.func, 'Use `leftCalloutView` instead.' ), onRightCalloutPress: deprecatedPropType( React.PropTypes.func, 'Use `rightCalloutView` instead.' )}] #
 annotations :: forall action. Boolean -> Prop action
-annotations = unsafeMkProps "annotations"
+annotations = mkProps "annotations"
 
 
 
 followUserLocation :: forall action. Boolean -> Prop action
-followUserLocation = unsafeMkProps "followUserLocation"
+followUserLocation = mkProps "followUserLocation"
 
 
 legalLabelInsets :: forall action. Box -> Prop action
-legalLabelInsets = unsafeMkProps "legalLabelInsets"
+legalLabelInsets = mkProps "legalLabelInsets"
 
 
 data MT
@@ -310,17 +307,17 @@ data MT
 
 
 mapType :: forall action. MT -> Prop action
-mapType MTStandard  = unsafeMkProps "mapType" "standard"
-mapType MTSatellite = unsafeMkProps "mapType" "satellite"
-mapType MTHybrid    = unsafeMkProps "mapType" "hybrid"
+mapType MTStandard  = mkProps "mapType" "standard"
+mapType MTSatellite = mkProps "mapType" "satellite"
+mapType MTHybrid    = mkProps "mapType" "hybrid"
 
 
 maxDelta :: forall action. Int -> Prop action
-maxDelta = unsafeMkProps "maxDelta"
+maxDelta = mkProps "maxDelta"
 
 
 minDelta :: forall action. Int -> Prop action
-minDelta = unsafeMkProps "minDelta"
+minDelta = mkProps "minDelta"
 
 
 -- TODO: implement overlay function
@@ -340,11 +337,11 @@ newtype Overlay = Overlay
 
 -- overlays [{coordinates: [object Object], lineWidth: number, strokeColor: [object Object], fillColor: [object Object], id: string}] #
 overlays :: forall action. Array Overlay -> Prop action
-overlays = unsafeMkProps "overlays"
+overlays = mkProps "overlays"
 
 
 pitchEnabled :: forall action. Boolean -> Prop action
-pitchEnabled = unsafeMkProps "pitchEnabled"
+pitchEnabled = mkProps "pitchEnabled"
 
 newtype Region = Region
   { lattitude :: Number
@@ -354,31 +351,31 @@ newtype Region = Region
   }
 
 region :: forall action. Region -> Prop action
-region = unsafeMkProps "region"
+region = mkProps "region"
 
 
 rotateEnabled :: forall action. Boolean -> Prop action
-rotateEnabled = unsafeMkProps "rotateEnabled"
+rotateEnabled = mkProps "rotateEnabled"
 
 
 showsCompass :: forall action. Boolean -> Prop action
-showsCompass = unsafeMkProps "showsCompass"
+showsCompass = mkProps "showsCompass"
 
 
 showsPointsOfInterest :: forall action. Boolean -> Prop action
-showsPointsOfInterest = unsafeMkProps "showsPointsOfInterest"
+showsPointsOfInterest = mkProps "showsPointsOfInterest"
 
 
 showsUserLocation :: forall action. Boolean -> Prop action
-showsUserLocation = unsafeMkProps "showsUserLocation"
+showsUserLocation = mkProps "showsUserLocation"
 
 
 zoomEnabled :: forall action. Boolean -> Prop action
-zoomEnabled = unsafeMkProps "zoomEnabled"
+zoomEnabled = mkProps "zoomEnabled"
 
 
 active :: forall action. Boolean -> Prop action
-active = unsafeMkProps "active"
+active = mkProps "active"
 
 
 data AT
@@ -388,17 +385,17 @@ data AT
 
 
 animationType :: forall action. AT -> Prop action
-animationType ATNone  = unsafeMkProps "animationType" "none"
-animationType ATSlide = unsafeMkProps "animationType" "slide"
-animationType ATFade  = unsafeMkProps "animationType" "fade"
+animationType ATNone  = mkProps "animationType" "none"
+animationType ATSlide = mkProps "animationType" "slide"
+animationType ATFade  = mkProps "animationType" "fade"
 
 
 transparent :: forall action. Boolean -> Prop action
-transparent = unsafeMkProps "transparent"
+transparent = mkProps "transparent"
 
 
 visible :: forall action. Boolean -> Prop action
-visible = unsafeMkProps "visible"
+visible = mkProps "visible"
 
 
 data SupportedOrientations
@@ -418,54 +415,54 @@ instance showSupportedOrientations :: Show SupportedOrientations where
 
 
 supportedOrientations :: forall action. Array SupportedOrientations -> Prop action
-supportedOrientations ary = unsafeMkProps "supportedOrientations" (map show ary)
+supportedOrientations ary = mkProps "supportedOrientations" (map show ary)
 
 
 
 -- initialRouteStack [object] #
 initialRouteStack :: forall action. Boolean -> Prop action
-initialRouteStack = unsafeMkProps "initialRouteStack"
+initialRouteStack = mkProps "initialRouteStack"
 
 -- navigationBar node #
 navigationBar :: forall action. Boolean -> Prop action
-navigationBar = unsafeMkProps "navigationBar"
+navigationBar = mkProps "navigationBar"
 
 -- navigator object #
 navigator :: forall action. Boolean -> Prop action
-navigator = unsafeMkProps "navigator"
+navigator = mkProps "navigator"
 
 
 
 
 -- initialRoute {component: function, title: string, titleImage: Image.propTypes.source, passProps: object, backButtonIcon: Image.propTypes.source, backButtonTitle: string, leftButtonIcon: Image.propTypes.source, leftButtonTitle: string, onLeftButtonPress: function, rightButtonIcon: Image.propTypes.source, rightButtonTitle: string, onRightButtonPress: function, wrapperStyle: [object Object], navigationBarHidden: bool, shadowHidden: bool, tintColor: string, barTintColor: string, titleTextColor: string, translucent: bool} #
 initialRoute :: forall action. Boolean -> Prop action
-initialRoute = unsafeMkProps "initialRoute"
+initialRoute = mkProps "initialRoute"
 
 
 interactivePopGestureEnabled :: forall action. Boolean -> Prop action
-interactivePopGestureEnabled = unsafeMkProps "interactivePopGestureEnabled"
+interactivePopGestureEnabled = mkProps "interactivePopGestureEnabled"
 
 -- itemWrapperStyle View#style #
 itemWrapperStyle :: forall action. Boolean -> Prop action
-itemWrapperStyle = unsafeMkProps "itemWrapperStyle"
+itemWrapperStyle = mkProps "itemWrapperStyle"
 
 
 navigationBarHidden :: forall action. Boolean -> Prop action
-navigationBarHidden = unsafeMkProps "navigationBarHidden"
+navigationBarHidden = mkProps "navigationBarHidden"
 
 
 shadowHidden :: forall action. Boolean -> Prop action
-shadowHidden = unsafeMkProps "shadowHidden"
+shadowHidden = mkProps "shadowHidden"
 
 
 titleTextColor :: forall action. Color -> Prop action
-titleTextColor c = unsafeMkProps "titleTextColor" (show c)
+titleTextColor c = mkProps "titleTextColor" (show c)
 
 
 
 -- style pickerStyleType #
 style :: forall action. Boolean -> Prop action
-style = unsafeMkProps "style"
+style = mkProps "style"
 
 data PM
   = PMDialog
@@ -473,25 +470,25 @@ data PM
 
 
 pickerMode :: forall action. PM -> Prop action
-pickerMode PMDialog   = unsafeMkProps "mode" "dialog"
-pickerMode PMDropDown = unsafeMkProps "mode" "dropdown"
+pickerMode PMDialog   = mkProps "mode" "dialog"
+pickerMode PMDropDown = mkProps "mode" "dropdown"
 
 
 prompt :: forall action. String -> Prop action
-prompt = unsafeMkProps "prompt"
+prompt = mkProps "prompt"
 
 
 -- itemStyle itemStylePropType #
 itemStyle :: forall action. Boolean -> Prop action
-itemStyle = unsafeMkProps "itemStyle"
+itemStyle = mkProps "itemStyle"
 
 
 selectedValue :: forall action a. a -> Prop action
-selectedValue = unsafeMkProps "selectedValue"
+selectedValue = mkProps "selectedValue"
 
 
 indeterminate :: forall action. Boolean -> Prop action
-indeterminate = unsafeMkProps "indeterminate"
+indeterminate = mkProps "indeterminate"
 
 data StyleAttributes
   = SAHorizontal
@@ -504,20 +501,20 @@ data StyleAttributes
 
 
 styleAttr :: forall action. StyleAttributes -> Prop action
-styleAttr SAHorizontal   = unsafeMkProps "styleAttr" "Horizontal"
-styleAttr SANormal       = unsafeMkProps "styleAttr" "Normal"
-styleAttr SASmall        = unsafeMkProps "styleAttr" "Small"
-styleAttr SALarge        = unsafeMkProps "styleAttr" "Large"
-styleAttr SAInverse      = unsafeMkProps "styleAttr" "Inverse"
-styleAttr SASmallInverse = unsafeMkProps "styleAttr" "SmallInverse"
-styleAttr SALargeInverse = unsafeMkProps "styleAttr" "LargeInverse"
+styleAttr SAHorizontal   = mkProps "styleAttr" "Horizontal"
+styleAttr SANormal       = mkProps "styleAttr" "Normal"
+styleAttr SASmall        = mkProps "styleAttr" "Small"
+styleAttr SALarge        = mkProps "styleAttr" "Large"
+styleAttr SAInverse      = mkProps "styleAttr" "Inverse"
+styleAttr SASmallInverse = mkProps "styleAttr" "SmallInverse"
+styleAttr SALargeInverse = mkProps "styleAttr" "LargeInverse"
 
 
 progress :: forall action. Number -> Prop action
-progress = unsafeMkProps "progress"
+progress = mkProps "progress"
 
 progressTintColor :: forall action. Color -> Prop action
-progressTintColor c = unsafeMkProps "progressTintColor" (show c)
+progressTintColor c = mkProps "progressTintColor" (show c)
 
 
 data PVS
@@ -526,156 +523,156 @@ data PVS
 
 
 progressViewStyle :: forall action. PVS -> Prop action
-progressViewStyle PVSDefault = unsafeMkProps "progressViewStyle" "default"
-progressViewStyle PVSBar     = unsafeMkProps "progressViewStyle" "bar"
+progressViewStyle PVSDefault = mkProps "progressViewStyle" "default"
+progressViewStyle PVSBar     = mkProps "progressViewStyle" "bar"
 
 
 trackTintColor :: forall action. Color -> Prop action
-trackTintColor c = unsafeMkProps "trackTintColor" (show c)
+trackTintColor c = mkProps "trackTintColor" (show c)
 
 
 refreshing :: forall action. Boolean -> Prop action
-refreshing = unsafeMkProps "refreshing"
+refreshing = mkProps "refreshing"
 
 
 colors :: forall action. Array Color -> Prop action
-colors cs = unsafeMkProps "colors" (map show cs)
+colors cs = mkProps "colors" (map show cs)
 
 
 progressBackgroundColor :: forall action. Color -> Prop action
-progressBackgroundColor c = unsafeMkProps "progressBackgroundColor" (show c)
+progressBackgroundColor c = mkProps "progressBackgroundColor" (show c)
 
 
 progressViewOffset :: forall action. Int -> Prop action
-progressViewOffset = unsafeMkProps "progressViewOffset"
+progressViewOffset = mkProps "progressViewOffset"
 
 -- size enum(RefreshLayoutConsts.SIZE.DEFAULT, RefreshLayoutConsts.SIZE.LARGE) #
 size :: forall action. Size -> Prop action
-size SizeSmall   = unsafeMkProps "size" "small"
-size SizeLarge   = unsafeMkProps "size" "large"
-size (SizeNum a) = unsafeMkProps "size" a
+size SizeSmall   = mkProps "size" "small"
+size SizeLarge   = mkProps "size" "large"
+size (SizeNum a) = mkProps "size" a
 
 
 data RefreshControlSize = RCDefault | RCLarge
 
 refreshControlSize :: forall action. RefreshControlSize -> Prop action
-refreshControlSize RCDefault = unsafeMkProps "size" refreshControlSizeDefault
-refreshControlSize RCLarge = unsafeMkProps "size" refreshControlSizeLarge
+refreshControlSize RCDefault = mkProps "size" refreshControlSizeDefault
+refreshControlSize RCLarge = mkProps "size" refreshControlSizeLarge
 
 
 -- contentContainerStyle StyleSheetPropType(ViewStylePropTypes) #
 contentContainerStyle :: forall action. Boolean -> Prop action
-contentContainerStyle = unsafeMkProps "contentContainerStyle"
+contentContainerStyle = mkProps "contentContainerStyle"
 
 
 horizontal :: forall action. Boolean -> Prop action
-horizontal = unsafeMkProps "horizontal"
+horizontal = mkProps "horizontal"
 
 
 keyboardShouldPersistTaps :: forall action. Boolean -> Prop action
-keyboardShouldPersistTaps = unsafeMkProps "keyboardShouldPersistTaps"
+keyboardShouldPersistTaps = mkProps "keyboardShouldPersistTaps"
 
 
 keyboardVerticalOffset :: forall action. Int -> Prop action
-keyboardVerticalOffset = unsafeMkProps "keyboardVerticalOffset"
+keyboardVerticalOffset = mkProps "keyboardVerticalOffset"
 
 
 
 pagingEnabled :: forall action. Boolean -> Prop action
-pagingEnabled = unsafeMkProps "pagingEnabled"
+pagingEnabled = mkProps "pagingEnabled"
 
 -- refreshControl element #
 refreshControl :: forall action. Boolean -> Prop action
-refreshControl = unsafeMkProps "refreshControl"
+refreshControl = mkProps "refreshControl"
 
 
 removeClippedSubviews :: forall action. Boolean -> Prop action
-removeClippedSubviews = unsafeMkProps "removeClippedSubviews"
+removeClippedSubviews = mkProps "removeClippedSubviews"
 
 showsHorizontalScrollIndicator :: forall action. Boolean -> Prop action
-showsHorizontalScrollIndicator = unsafeMkProps "showsHorizontalScrollIndicator"
+showsHorizontalScrollIndicator = mkProps "showsHorizontalScrollIndicator"
 
 
 showsVerticalScrollIndicator :: forall action. Boolean -> Prop action
-showsVerticalScrollIndicator = unsafeMkProps "showsVerticalScrollIndicator"
+showsVerticalScrollIndicator = mkProps "showsVerticalScrollIndicator"
 
 
 endFillColor :: forall action. Color -> Prop action
-endFillColor c = unsafeMkProps "endFillColor" (show c)
+endFillColor c = mkProps "endFillColor" (show c)
 
 
 scrollPerfTag :: forall action. String -> Prop action
-scrollPerfTag = unsafeMkProps "scrollPerfTag"
+scrollPerfTag = mkProps "scrollPerfTag"
 
 
 alwaysBounceHorizontal :: forall action. Boolean -> Prop action
-alwaysBounceHorizontal = unsafeMkProps "alwaysBounceHorizontal"
+alwaysBounceHorizontal = mkProps "alwaysBounceHorizontal"
 
 
 alwaysBounceVertical :: forall action. Boolean -> Prop action
-alwaysBounceVertical = unsafeMkProps "alwaysBounceVertical"
+alwaysBounceVertical = mkProps "alwaysBounceVertical"
 
 
 automaticallyAdjustContentInsets :: forall action. Boolean -> Prop action
-automaticallyAdjustContentInsets = unsafeMkProps "automaticallyAdjustContentInsets"
+automaticallyAdjustContentInsets = mkProps "automaticallyAdjustContentInsets"
 
 
 bounces :: forall action. Boolean -> Prop action
-bounces = unsafeMkProps "bounces"
+bounces = mkProps "bounces"
 
 
 bouncesZoom :: forall action. Boolean -> Prop action
-bouncesZoom = unsafeMkProps "bouncesZoom"
+bouncesZoom = mkProps "bouncesZoom"
 
 
 injectedJavaScript :: forall action. String -> Prop action
-injectedJavaScript = unsafeMkProps "injectedJavaScript"
+injectedJavaScript = mkProps "injectedJavaScript"
 
 
 userAgent :: forall action. String -> Prop action
-userAgent = unsafeMkProps "userAgent"
+userAgent = mkProps "userAgent"
 
 
 scalesPageToFit :: forall action. Boolean -> Prop action
-scalesPageToFit = unsafeMkProps "scalesPageToFit"
+scalesPageToFit = mkProps "scalesPageToFit"
 
 
 startInLoadingState :: forall action. Boolean -> Prop action
-startInLoadingState = unsafeMkProps "startInLoadingState"
+startInLoadingState = mkProps "startInLoadingState"
 
 
 domStorageEnabled :: forall action. Boolean -> Prop action
-domStorageEnabled = unsafeMkProps "domStorageEnabled"
+domStorageEnabled = mkProps "domStorageEnabled"
 
 
 javaScriptEnabled :: forall action. Boolean -> Prop action
-javaScriptEnabled = unsafeMkProps "javaScriptEnabled"
+javaScriptEnabled = mkProps "javaScriptEnabled"
 
 
 allowsInlineMediaPlayback :: forall action. Boolean -> Prop action
-allowsInlineMediaPlayback = unsafeMkProps "allowsInlineMediaPlayback"
+allowsInlineMediaPlayback = mkProps "allowsInlineMediaPlayback"
 
 
 mediaPlaybackRequiresUserAction :: forall action. Boolean -> Prop action
-mediaPlaybackRequiresUserAction = unsafeMkProps "mediaPlaybackRequiresUserAction"
+mediaPlaybackRequiresUserAction = mkProps "mediaPlaybackRequiresUserAction"
 
 
 canCancelContentTouches :: forall action. Boolean -> Prop action
-canCancelContentTouches = unsafeMkProps "canCancelContentTouches"
+canCancelContentTouches = mkProps "canCancelContentTouches"
 
 
 centerContent :: forall action. Boolean -> Prop action
-centerContent = unsafeMkProps "centerContent"
+centerContent = mkProps "centerContent"
 
 
 contentInset :: forall action. Box -> Prop action
-contentInset = unsafeMkProps "contentInset"
+contentInset = mkProps "contentInset"
 
 type Point = {x :: Int, y :: Int}
 
 
 contentOffset :: forall action. Point -> Prop action
-contentOffset = unsafeMkProps "contentOffset"
+contentOffset = mkProps "contentOffset"
 
 
 data DRT
@@ -685,13 +682,13 @@ data DRT
 
 
 decelerationRate :: forall action. DRT -> Prop action
-decelerationRate DRTFast    = unsafeMkProps "decelerationRate" "fast"
-decelerationRate DRTNormal  = unsafeMkProps "decelerationRate" "normal"
-decelerationRate (DRTNum a) = unsafeMkProps "decelerationRate" a
+decelerationRate DRTFast    = mkProps "decelerationRate" "fast"
+decelerationRate DRTNormal  = mkProps "decelerationRate" "normal"
+decelerationRate (DRTNum a) = mkProps "decelerationRate" a
 
 
 directionalLockEnabled :: forall action. Boolean -> Prop action
-directionalLockEnabled = unsafeMkProps "directionalLockEnabled"
+directionalLockEnabled = mkProps "directionalLockEnabled"
 
 
 data IndicatorStyle
@@ -701,30 +698,30 @@ data IndicatorStyle
 
 
 indicatorStyle :: forall action. IndicatorStyle -> Prop action
-indicatorStyle ISDefault = unsafeMkProps "indicatorStyle" "default"
-indicatorStyle ISBlack   = unsafeMkProps "indicatorStyle" "black"
-indicatorStyle ISWhite   = unsafeMkProps "indicatorStyle" "white"
+indicatorStyle ISDefault = mkProps "indicatorStyle" "default"
+indicatorStyle ISBlack   = mkProps "indicatorStyle" "black"
+indicatorStyle ISWhite   = mkProps "indicatorStyle" "white"
 
 
 
 maximumZoomScale :: forall action. Number -> Prop action
-maximumZoomScale = unsafeMkProps "maximumZoomScale"
+maximumZoomScale = mkProps "maximumZoomScale"
 
 minimumZoomScale :: forall action. Number -> Prop action
-minimumZoomScale = unsafeMkProps "minimumZoomScale"
+minimumZoomScale = mkProps "minimumZoomScale"
 
 
 
 scrollEventThrottle :: forall action. Int -> Prop action
-scrollEventThrottle = unsafeMkProps "scrollEventThrottle"
+scrollEventThrottle = mkProps "scrollEventThrottle"
 
 
 scrollIndicatorInsets :: forall action. Box -> Prop action
-scrollIndicatorInsets = unsafeMkProps "scrollIndicatorInsets"
+scrollIndicatorInsets = mkProps "scrollIndicatorInsets"
 
 
 scrollsToTop :: forall action. Boolean -> Prop action
-scrollsToTop = unsafeMkProps "scrollsToTop"
+scrollsToTop = mkProps "scrollsToTop"
 
 
 data SnapToAlignment
@@ -734,76 +731,76 @@ data SnapToAlignment
 
 
 snapToAlignment :: forall action. SnapToAlignment -> Prop action
-snapToAlignment STAStart = unsafeMkProps "snapToAlignment" "start"
-snapToAlignment STACenter = unsafeMkProps "snapToAlignment" "center"
-snapToAlignment STAEnd = unsafeMkProps "snapToAlignment" "end"
+snapToAlignment STAStart = mkProps "snapToAlignment" "start"
+snapToAlignment STACenter = mkProps "snapToAlignment" "center"
+snapToAlignment STAEnd = mkProps "snapToAlignment" "end"
 
 
 
 snapToInterval :: forall action. Int -> Prop action
-snapToInterval = unsafeMkProps "snapToInterval"
+snapToInterval = mkProps "snapToInterval"
 
 
 stickyHeaderIndices :: forall action. Array Int -> Prop action
-stickyHeaderIndices = unsafeMkProps "stickyHeaderIndices"
+stickyHeaderIndices = mkProps "stickyHeaderIndices"
 
 
 zoomScale :: forall action. Number -> Prop action
-zoomScale = unsafeMkProps "zoomScale"
+zoomScale = mkProps "zoomScale"
 
 
 enabled :: forall action. Boolean -> Prop action
-enabled = unsafeMkProps "enabled"
+enabled = mkProps "enabled"
 
 
 momentary :: forall action. Boolean -> Prop action
-momentary = unsafeMkProps "momentary"
+momentary = mkProps "momentary"
 
 
 
 selectedIndex :: forall action. Int -> Prop action
-selectedIndex = unsafeMkProps "selectedIndex"
+selectedIndex = mkProps "selectedIndex"
 
 
 
 values :: forall action. Array String -> Prop action
-values = unsafeMkProps "values"
+values = mkProps "values"
 
 
 valueNum :: forall action. Int -> Prop action
-valueNum = unsafeMkProps "value"
+valueNum = mkProps "value"
 
 
 valueBool :: forall action. Boolean -> Prop action
-valueBool = unsafeMkProps "value"
+valueBool = mkProps "value"
 
 
 maximumTrackTintColor :: forall action. Color -> Prop action
-maximumTrackTintColor c = unsafeMkProps "maximumTrackTintColor" (show c)
+maximumTrackTintColor c = mkProps "maximumTrackTintColor" (show c)
 
 
 maximumValue :: forall action. Int -> Prop action
-maximumValue = unsafeMkProps "maximumValue"
+maximumValue = mkProps "maximumValue"
 
 
 
 minimumTrackTintColor :: forall action. Color -> Prop action
-minimumTrackTintColor c = unsafeMkProps "minimumTrackTintColor" (show c)
+minimumTrackTintColor c = mkProps "minimumTrackTintColor" (show c)
 
 
 minimumValue :: forall action. Int -> Prop action
-minimumValue = unsafeMkProps "minimumValue"
+minimumValue = mkProps "minimumValue"
 
 
 step :: forall action. Int -> Prop action
-step = unsafeMkProps "step"
+step = mkProps "step"
 
 hidden :: forall action. Boolean -> Prop action
-hidden = unsafeMkProps "hidden"
+hidden = mkProps "hidden"
 
 
 pBackgroundColor :: forall action. Color -> Prop action
-pBackgroundColor c = unsafeMkProps "backgroundColor" (show c)
+pBackgroundColor c = mkProps "backgroundColor" (show c)
 
 
 data BarStyle
@@ -813,14 +810,14 @@ data BarStyle
 
 
 barStyle :: forall action. BarStyle -> Prop action
-barStyle BSDefault      = unsafeMkProps "barStyle" "default"
-barStyle BSLightContent = unsafeMkProps "barStyle" "light-content"
-barStyle BSDarkContent  = unsafeMkProps "barStyle" "dark-content"
+barStyle BSDefault      = mkProps "barStyle" "default"
+barStyle BSLightContent = mkProps "barStyle" "light-content"
+barStyle BSDarkContent  = mkProps "barStyle" "dark-content"
 
 
 
 networkActivityIndicatorVisible :: forall action. Boolean -> Prop action
-networkActivityIndicatorVisible = unsafeMkProps "networkActivityIndicatorVisible"
+networkActivityIndicatorVisible = mkProps "networkActivityIndicatorVisible"
 
 
 data ShowHideTransition
@@ -829,26 +826,26 @@ data ShowHideTransition
 
 
 showHideTransition :: forall action. ShowHideTransition -> Prop action
-showHideTransition SHTFade = unsafeMkProps "showHideTransition" "fade"
-showHideTransition SHTSlide = unsafeMkProps "showHideTransition" "slide"
+showHideTransition SHTFade = mkProps "showHideTransition" "fade"
+showHideTransition SHTSlide = mkProps "showHideTransition" "slide"
 
 
 
 testIdentifier :: forall action. String -> Prop action
-testIdentifier = unsafeMkProps "testIdentifier"
+testIdentifier = mkProps "testIdentifier"
 
 
 
 onTintColor :: forall action. Color -> Prop action
-onTintColor c = unsafeMkProps "onTintColor" (show c)
+onTintColor c = mkProps "onTintColor" (show c)
 
 
 thumbTintColor :: forall action. Color -> Prop action
-thumbTintColor c = unsafeMkProps "thumbTintColor" (show c)
+thumbTintColor c = mkProps "thumbTintColor" (show c)
 
 
 barTintColor :: forall action. Color -> Prop action
-barTintColor c = unsafeMkProps "barTintColor" (show c)
+barTintColor c = mkProps "barTintColor" (show c)
 
 
 data ItemPositioning
@@ -858,37 +855,37 @@ data ItemPositioning
 
 
 itemPositioning :: forall action. ItemPositioning -> Prop action
-itemPositioning IPFill   = unsafeMkProps "itemPositioning" "fill"
-itemPositioning IPCenter = unsafeMkProps "itemPositioning" "center"
-itemPositioning IPAuto   = unsafeMkProps "itemPositioning" "auto"
+itemPositioning IPFill   = mkProps "itemPositioning" "fill"
+itemPositioning IPCenter = mkProps "itemPositioning" "center"
+itemPositioning IPAuto   = mkProps "itemPositioning" "auto"
 
 
 tintColor :: forall action. Color -> Prop action
-tintColor c = unsafeMkProps "tintColor" (show c)
+tintColor c = mkProps "tintColor" (show c)
 
 
 translucent :: forall action. Boolean -> Prop action
-translucent = unsafeMkProps "translucent"
+translucent = mkProps "translucent"
 
 
 unselectedTintColor :: forall action. Color -> Prop action
-unselectedTintColor c = unsafeMkProps "unselectedTintColor" (show c)
+unselectedTintColor c = mkProps "unselectedTintColor" (show c)
 
 
 data Badge = BadgeStr String | BadgeNum Int
 
 
 badge :: forall action. Badge -> Prop action
-badge (BadgeStr str) = unsafeMkProps "badge" str
-badge (BadgeNum num) = unsafeMkProps "badge" num
+badge (BadgeStr str) = mkProps "badge" str
+badge (BadgeNum num) = mkProps "badge" num
 
 
 renderAsOriginal :: forall action. Boolean -> Prop action
-renderAsOriginal = unsafeMkProps "renderAsOriginal"
+renderAsOriginal = mkProps "renderAsOriginal"
 
 
 selected :: forall action. Boolean -> Prop action
-selected = unsafeMkProps "selected"
+selected = mkProps "selected"
 
 data SysIcon
   = SysIconBookmarks
@@ -906,18 +903,18 @@ data SysIcon
 
 
 systemIcon :: forall action. SysIcon -> Prop action
-systemIcon SysIconBookmarks  = unsafeMkProps "systemIcon" "bookmarks"
-systemIcon SysIconContacts   = unsafeMkProps "systemIcon" "contacts"
-systemIcon SysIconDownloads  = unsafeMkProps "systemIcon" "downloads"
-systemIcon SysIconFavorites  = unsafeMkProps "systemIcon" "favorites"
-systemIcon SysIconFeatured   = unsafeMkProps "systemIcon" "featured"
-systemIcon SysIconHistory    = unsafeMkProps "systemIcon" "history"
-systemIcon SysIconMore       = unsafeMkProps "systemIcon" "more"
-systemIcon SysIconMostRecent = unsafeMkProps "systemIcon" "most-recent"
-systemIcon SysIconMostViewed = unsafeMkProps "systemIcon" "most-viewed"
-systemIcon SysIconRecents    = unsafeMkProps "systemIcon" "recents"
-systemIcon SysIconSearch     = unsafeMkProps "systemIcon" "search"
-systemIcon SysIconTopRated   = unsafeMkProps "systemIcon" "top-rated"
+systemIcon SysIconBookmarks  = mkProps "systemIcon" "bookmarks"
+systemIcon SysIconContacts   = mkProps "systemIcon" "contacts"
+systemIcon SysIconDownloads  = mkProps "systemIcon" "downloads"
+systemIcon SysIconFavorites  = mkProps "systemIcon" "favorites"
+systemIcon SysIconFeatured   = mkProps "systemIcon" "featured"
+systemIcon SysIconHistory    = mkProps "systemIcon" "history"
+systemIcon SysIconMore       = mkProps "systemIcon" "more"
+systemIcon SysIconMostRecent = mkProps "systemIcon" "most-recent"
+systemIcon SysIconMostViewed = mkProps "systemIcon" "most-viewed"
+systemIcon SysIconRecents    = mkProps "systemIcon" "recents"
+systemIcon SysIconSearch     = mkProps "systemIcon" "search"
+systemIcon SysIconTopRated   = mkProps "systemIcon" "top-rated"
 
 
 data EllipsizeMode
@@ -928,30 +925,30 @@ data EllipsizeMode
 
 
 ellipsizeMode :: forall action. EllipsizeMode -> Prop action
-ellipsizeMode EMHead   = unsafeMkProps "ellipsizeMode" "head"
-ellipsizeMode EMMiddle = unsafeMkProps "ellipsizeMode" "middle"
-ellipsizeMode EMTail   = unsafeMkProps "ellipsizeMode" "tail"
-ellipsizeMode EMClip   = unsafeMkProps "ellipsizeMode" "clip"
+ellipsizeMode EMHead   = mkProps "ellipsizeMode" "head"
+ellipsizeMode EMMiddle = mkProps "ellipsizeMode" "middle"
+ellipsizeMode EMTail   = mkProps "ellipsizeMode" "tail"
+ellipsizeMode EMClip   = mkProps "ellipsizeMode" "clip"
 
 
 selectable :: forall action. Boolean -> Prop action
-selectable = unsafeMkProps "selectable"
+selectable = mkProps "selectable"
 
 
 adjustsFontSizeToFit :: forall action. Boolean -> Prop action
-adjustsFontSizeToFit = unsafeMkProps "adjustsFontSizeToFit"
+adjustsFontSizeToFit = mkProps "adjustsFontSizeToFit"
 
 
 allowFontScaling :: forall action. Boolean -> Prop action
-allowFontScaling = unsafeMkProps "allowFontScaling"
+allowFontScaling = mkProps "allowFontScaling"
 
 
 minimumFontScale :: forall action. Number -> Prop action
-minimumFontScale = unsafeMkProps "minimumFontScale"
+minimumFontScale = mkProps "minimumFontScale"
 
 
 suppressHighlighting :: forall action. Boolean -> Prop action
-suppressHighlighting = unsafeMkProps "suppressHighlighting"
+suppressHighlighting = mkProps "suppressHighlighting"
 
 
 data AutoCapitalize
@@ -962,30 +959,30 @@ data AutoCapitalize
 
 
 autoCapitalize :: forall action. AutoCapitalize -> Prop action
-autoCapitalize AutoCapNone       = unsafeMkProps "autoCapitalize" "none"
-autoCapitalize AutoCapSentences  = unsafeMkProps "autoCapitalize" "sentences"
-autoCapitalize AutoCapWords      = unsafeMkProps "autoCapitalize" "words"
-autoCapitalize AutoCapCharacters = unsafeMkProps "autoCapitalize" "characters"
+autoCapitalize AutoCapNone       = mkProps "autoCapitalize" "none"
+autoCapitalize AutoCapSentences  = mkProps "autoCapitalize" "sentences"
+autoCapitalize AutoCapWords      = mkProps "autoCapitalize" "words"
+autoCapitalize AutoCapCharacters = mkProps "autoCapitalize" "characters"
 
 
 autoCorrect :: forall action. Boolean -> Prop action
-autoCorrect = unsafeMkProps "autoCorrect"
+autoCorrect = mkProps "autoCorrect"
 
 
 autoFocus :: forall action. Boolean -> Prop action
-autoFocus = unsafeMkProps "autoFocus"
+autoFocus = mkProps "autoFocus"
 
 
 blurOnSubmit :: forall action. Boolean -> Prop action
-blurOnSubmit = unsafeMkProps "blurOnSubmit"
+blurOnSubmit = mkProps "blurOnSubmit"
 
 
 defaultValue :: forall action. String -> Prop action
-defaultValue = unsafeMkProps "defaultValue"
+defaultValue = mkProps "defaultValue"
 
 
 editable :: forall action. Boolean -> Prop action
-editable = unsafeMkProps "editable"
+editable = mkProps "editable"
 
 data KeyBoardType
   = KBTDefault
@@ -1003,35 +1000,35 @@ data KeyBoardType
 
 
 keyboardType :: forall action. KeyBoardType -> Prop action
-keyboardType KBTDefault               = unsafeMkProps "keyboardType" "default"
-keyboardType KBTEmailAddress          = unsafeMkProps "keyboardType" "email-address"
-keyboardType KBTNumeric               = unsafeMkProps "keyboardType" "numeric"
-keyboardType KBTPhonePad              = unsafeMkProps "keyboardType" "phone-pad"
-keyboardType KBTAsciiCapable          = unsafeMkProps "keyboardType" "ascii-capable"
-keyboardType KBTNumbersAndPunctuation = unsafeMkProps "keyboardType" "numbers-and-punctuation"
-keyboardType KBTUrl                   = unsafeMkProps "keyboardType" "url"
-keyboardType KBTNumberPad             = unsafeMkProps "keyboardType" "number-pad"
-keyboardType KBTNamePhonePad          = unsafeMkProps "keyboardType" "name-phone-pad"
-keyboardType KBTDecimalPad            = unsafeMkProps "keyboardType" "decimal-pad"
-keyboardType KBTTwitter               = unsafeMkProps "keyboardType" "twitter"
-keyboardType KBTWebSearch             = unsafeMkProps "keyboardType" "web-search"
+keyboardType KBTDefault               = mkProps "keyboardType" "default"
+keyboardType KBTEmailAddress          = mkProps "keyboardType" "email-address"
+keyboardType KBTNumeric               = mkProps "keyboardType" "numeric"
+keyboardType KBTPhonePad              = mkProps "keyboardType" "phone-pad"
+keyboardType KBTAsciiCapable          = mkProps "keyboardType" "ascii-capable"
+keyboardType KBTNumbersAndPunctuation = mkProps "keyboardType" "numbers-and-punctuation"
+keyboardType KBTUrl                   = mkProps "keyboardType" "url"
+keyboardType KBTNumberPad             = mkProps "keyboardType" "number-pad"
+keyboardType KBTNamePhonePad          = mkProps "keyboardType" "name-phone-pad"
+keyboardType KBTDecimalPad            = mkProps "keyboardType" "decimal-pad"
+keyboardType KBTTwitter               = mkProps "keyboardType" "twitter"
+keyboardType KBTWebSearch             = mkProps "keyboardType" "web-search"
 
 
 maxLength :: forall action. Int -> Prop action
-maxLength = unsafeMkProps "maxLength"
+maxLength = mkProps "maxLength"
 
 
 multiline :: forall action. Boolean -> Prop action
-multiline = unsafeMkProps "multiline"
+multiline = mkProps "multiline"
 
 
 
 placeholder :: forall action. String -> Prop action
-placeholder = unsafeMkProps "placeholder"
+placeholder = mkProps "placeholder"
 
 
 placeholderTextColor :: forall action. Color -> Prop action
-placeholderTextColor c = unsafeMkProps "placeholderTextColor" (show c)
+placeholderTextColor c = mkProps "placeholderTextColor" (show c)
 
 
 data ReturnKeyType
@@ -1051,57 +1048,57 @@ data ReturnKeyType
 
 
 returnKeyType :: forall action. ReturnKeyType -> Prop action
-returnKeyType RKTDone           = unsafeMkProps "returnKeyType" "done"
-returnKeyType RKTGo             = unsafeMkProps "returnKeyType" "go"
-returnKeyType RKTNext           = unsafeMkProps "returnKeyType" "next"
-returnKeyType RKTSearch         = unsafeMkProps "returnKeyType" "search"
-returnKeyType RKTSend           = unsafeMkProps "returnKeyType" "send"
-returnKeyType RKTNone           = unsafeMkProps "returnKeyType" "none"
-returnKeyType RKTPrevious       = unsafeMkProps "returnKeyType" "previous"
-returnKeyType RKTDefault        = unsafeMkProps "returnKeyType" "default"
-returnKeyType RKTEmergencyCall  = unsafeMkProps "returnKeyType" "emergency-call"
-returnKeyType RKTGoogle         = unsafeMkProps "returnKeyType" "google"
-returnKeyType RKTJoin           = unsafeMkProps "returnKeyType" "join"
-returnKeyType RKTRoute          = unsafeMkProps "returnKeyType" "route"
-returnKeyType RKTYahoo          = unsafeMkProps "returnKeyType" "yahoo"
+returnKeyType RKTDone           = mkProps "returnKeyType" "done"
+returnKeyType RKTGo             = mkProps "returnKeyType" "go"
+returnKeyType RKTNext           = mkProps "returnKeyType" "next"
+returnKeyType RKTSearch         = mkProps "returnKeyType" "search"
+returnKeyType RKTSend           = mkProps "returnKeyType" "send"
+returnKeyType RKTNone           = mkProps "returnKeyType" "none"
+returnKeyType RKTPrevious       = mkProps "returnKeyType" "previous"
+returnKeyType RKTDefault        = mkProps "returnKeyType" "default"
+returnKeyType RKTEmergencyCall  = mkProps "returnKeyType" "emergency-call"
+returnKeyType RKTGoogle         = mkProps "returnKeyType" "google"
+returnKeyType RKTJoin           = mkProps "returnKeyType" "join"
+returnKeyType RKTRoute          = mkProps "returnKeyType" "route"
+returnKeyType RKTYahoo          = mkProps "returnKeyType" "yahoo"
 
 
 
 secureTextEntry :: forall action. Boolean -> Prop action
-secureTextEntry = unsafeMkProps "secureTextEntry"
+secureTextEntry = mkProps "secureTextEntry"
 
 
 selectTextOnFocus :: forall action. Boolean -> Prop action
-selectTextOnFocus = unsafeMkProps "selectTextOnFocus"
+selectTextOnFocus = mkProps "selectTextOnFocus"
 
 
 selectionColor :: forall action. Color -> Prop action
-selectionColor c = unsafeMkProps "selectionColor" (show c)
+selectionColor c = mkProps "selectionColor" (show c)
 
 
 
 valueString :: forall action. String -> Prop action
-valueString = unsafeMkProps "value"
+valueString = mkProps "value"
 
 
 inlineImageLeft :: forall action. String -> Prop action
-inlineImageLeft = unsafeMkProps "inlineImageLeft"
+inlineImageLeft = mkProps "inlineImageLeft"
 
 
 inlineImagePadding :: forall action. Int -> Prop action
-inlineImagePadding = unsafeMkProps "inlineImagePadding"
+inlineImagePadding = mkProps "inlineImagePadding"
 
 
 numberOfLines :: forall action. Int -> Prop action
-numberOfLines = unsafeMkProps "numberOfLines"
+numberOfLines = mkProps "numberOfLines"
 
 
 returnKeyLabel :: forall action. String -> Prop action
-returnKeyLabel = unsafeMkProps "returnKeyLabel"
+returnKeyLabel = mkProps "returnKeyLabel"
 
 
 underlineColorAndroid :: forall action. Color -> Prop action
-underlineColorAndroid c = unsafeMkProps "underlineColorAndroid" (show c)
+underlineColorAndroid c = mkProps "underlineColorAndroid" (show c)
 
 
 data ClearButtonMode
@@ -1112,18 +1109,18 @@ data ClearButtonMode
 
 
 clearButtonMode :: forall action. ClearButtonMode -> Prop action
-clearButtonMode CBMNever         = unsafeMkProps "clearButtonMode" "never"
-clearButtonMode CBMWhileEditing  = unsafeMkProps "clearButtonMode" "while-editing"
-clearButtonMode CBMUnlessEditing = unsafeMkProps "clearButtonMode" "unless-editing"
-clearButtonMode CBMAlways        = unsafeMkProps "clearButtonMode" "always"
+clearButtonMode CBMNever         = mkProps "clearButtonMode" "never"
+clearButtonMode CBMWhileEditing  = mkProps "clearButtonMode" "while-editing"
+clearButtonMode CBMUnlessEditing = mkProps "clearButtonMode" "unless-editing"
+clearButtonMode CBMAlways        = mkProps "clearButtonMode" "always"
 
 
 clearTextOnFocus :: forall action. Boolean -> Prop action
-clearTextOnFocus = unsafeMkProps "clearTextOnFocus"
+clearTextOnFocus = mkProps "clearTextOnFocus"
 
 
 enablesReturnKeyAutomatically :: forall action. Boolean -> Prop action
-enablesReturnKeyAutomatically = unsafeMkProps "enablesReturnKeyAutomatically"
+enablesReturnKeyAutomatically = mkProps "enablesReturnKeyAutomatically"
 
 
 data KeyBoardAppearance
@@ -1133,15 +1130,15 @@ data KeyBoardAppearance
 
 
 keyboardAppearance :: forall action. KeyBoardAppearance -> Prop action
-keyboardAppearance KBADefault = unsafeMkProps "keyboardAppearance" "default"
-keyboardAppearance KBALight   = unsafeMkProps "keyboardAppearance" "light"
-keyboardAppearance KBADark    = unsafeMkProps "keyboardAppearance" "dark"
+keyboardAppearance KBADefault = mkProps "keyboardAppearance" "default"
+keyboardAppearance KBALight   = mkProps "keyboardAppearance" "light"
+keyboardAppearance KBADark    = mkProps "keyboardAppearance" "dark"
 
 
 -- TODO: implement DocumentSelectionState through FFI
 -- selectionState PropTypes.instanceOf(DocumentSelectionState) #
 selectionState :: forall action. Boolean -> Prop action
-selectionState = unsafeMkProps "selectionState"
+selectionState = mkProps "selectionState"
 
 
 data ActionPropType = ActionPropType
@@ -1158,98 +1155,98 @@ data ShowProp
 
 -- actions ReactPropTypes.arrayOf(ReactPropTypes.shape({ title: ReactPropTypes.string.isRequired, icon: optionalImageSource, show: ReactPropTypes.oneOf(['always', 'ifRoom', 'never']), showWithText: ReactPropTypes.bool })) #
 actions :: forall action. Boolean -> Prop action
-actions = unsafeMkProps "actions"
+actions = mkProps "actions"
 
 
 contentInsetEnd :: forall action. Int -> Prop action
-contentInsetEnd = unsafeMkProps "contentInsetEnd"
+contentInsetEnd = mkProps "contentInsetEnd"
 
 
 contentInsetStart :: forall action. Int -> Prop action
-contentInsetStart = unsafeMkProps "contentInsetStart"
+contentInsetStart = mkProps "contentInsetStart"
 
 
 
 rtl :: forall action. Boolean -> Prop action
-rtl = unsafeMkProps "rtl"
+rtl = mkProps "rtl"
 
 
 subtitle :: forall action. String -> Prop action
-subtitle = unsafeMkProps "subtitle"
+subtitle = mkProps "subtitle"
 
 
 subtitleColor :: forall action. Color -> Prop action
-subtitleColor c = unsafeMkProps "subtitleColor" (show c)
+subtitleColor c = mkProps "subtitleColor" (show c)
 
 
 title :: forall action. String -> Prop action
-title = unsafeMkProps "title"
+title = mkProps "title"
 
 
 titleColor :: forall action. Color -> Prop action
-titleColor c = unsafeMkProps "titleColor" (show c)
+titleColor c = mkProps "titleColor" (show c)
 
 
 underlayColor :: forall action. Color -> Prop action
-underlayColor c = unsafeMkProps "underlayColor" (show c)
+underlayColor c = mkProps "underlayColor" (show c)
 
 
 -- background backgroundPropType #
 background :: forall action. Boolean -> Prop action
-background = unsafeMkProps "background"
+background = mkProps "background"
 
 useForeground :: forall action. Boolean -> Prop action
-useForeground = unsafeMkProps "useForeground"
+useForeground = mkProps "useForeground"
 
 
 activeOpacity :: forall action. Number -> Prop action
-activeOpacity = unsafeMkProps "activeOpacity"
+activeOpacity = mkProps "activeOpacity"
 
 
 accessibilityComponentType :: forall action. AccessibilityComponentTypeProp -> Prop action
-accessibilityComponentType ACTPNone             = unsafeMkProps "accessibilityComponentType" "none"
-accessibilityComponentType Button               = unsafeMkProps "accessibilityComponentType" "button"
-accessibilityComponentType RadiobuttonChecked   = unsafeMkProps "accessibilityComponentType" "radiobutton_checked"
-accessibilityComponentType RadiobuttonUnchecked = unsafeMkProps "accessibilityComponentType" "radiobutton_unchecked"
+accessibilityComponentType ACTPNone             = mkProps "accessibilityComponentType" "none"
+accessibilityComponentType Button               = mkProps "accessibilityComponentType" "button"
+accessibilityComponentType RadiobuttonChecked   = mkProps "accessibilityComponentType" "radiobutton_checked"
+accessibilityComponentType RadiobuttonUnchecked = mkProps "accessibilityComponentType" "radiobutton_unchecked"
 
 
 
 -- TODO: implement accessibilityTraits
 -- accessibilityTraits View.AccessibilityTraits, [object Object] #
 -- accessibilityTraits :: Array  AccessibilityTraitsProp -> Prop action
--- accessibilityTraits = unsafeMkProps "accessibilityTraits"
+-- accessibilityTraits = mkProps "accessibilityTraits"
 
 
 accessible :: forall action. Boolean -> Prop action
-accessible = unsafeMkProps "accessible"
+accessible = mkProps "accessible"
 
 
 delayLongPress :: forall action. Int -> Prop action
-delayLongPress = unsafeMkProps "delayLongPress"
+delayLongPress = mkProps "delayLongPress"
 
 
 delayPressIn :: forall action. Int -> Prop action
-delayPressIn = unsafeMkProps "delayPressIn"
+delayPressIn = mkProps "delayPressIn"
 
 
 delayPressOut :: forall action. Int -> Prop action
-delayPressOut = unsafeMkProps "delayPressOut"
+delayPressOut = mkProps "delayPressOut"
 
 
 disabled :: forall action. Boolean -> Prop action
-disabled = unsafeMkProps "disabled"
+disabled = mkProps "disabled"
 
 
 hitSlop :: forall action. Box -> Prop action
-hitSlop = unsafeMkProps "hitSlop"
+hitSlop = mkProps "hitSlop"
 
 
 pressRetentionOffset :: forall action. Box -> Prop action
-pressRetentionOffset = unsafeMkProps "pressRetentionOffset"
+pressRetentionOffset = mkProps "pressRetentionOffset"
 
 
 initialPage :: forall action. Int -> Prop action
-initialPage = unsafeMkProps "initialPage"
+initialPage = mkProps "initialPage"
 
 
 data KeyboardDismissMode
@@ -1259,27 +1256,27 @@ data KeyboardDismissMode
 
 
 keyboardDismissMode :: forall action. KeyboardDismissMode -> Prop action
-keyboardDismissMode KDMNone        = unsafeMkProps "keyboardDismissMode" "none"
-keyboardDismissMode KDMInteractive = unsafeMkProps "keyboardDismissMode" "interactive"
-keyboardDismissMode KDMOnDrag      = unsafeMkProps "keyboardDismissMode" "on-drag"
+keyboardDismissMode KDMNone        = mkProps "keyboardDismissMode" "none"
+keyboardDismissMode KDMInteractive = mkProps "keyboardDismissMode" "interactive"
+keyboardDismissMode KDMOnDrag      = mkProps "keyboardDismissMode" "on-drag"
 
 
 pageMargin :: forall action. Int -> Prop action
-pageMargin = unsafeMkProps "pageMargin"
+pageMargin = mkProps "pageMargin"
 
 
 scrollEnabled :: forall action. Boolean -> Prop action
-scrollEnabled = unsafeMkProps "scrollEnabled"
+scrollEnabled = mkProps "scrollEnabled"
 
 
 renderNavigationView :: forall action. Element action -> Prop action
-renderNavigationView = unsafeMkFnProps "renderNavigationView"
+renderNavigationView = mkFnProps "renderNavigationView"
 
 renderFooter :: forall action. Element action -> Prop action
-renderFooter = unsafeMkFnProps "renderFooter"
+renderFooter = mkFnProps "renderFooter"
 
 renderHeader :: forall action. Element action -> Prop action
-renderHeader = unsafeMkFnProps "renderHeader"
+renderHeader = mkFnProps "renderHeader"
 
 data ImageSource
   = ImgURI {uri :: String}
@@ -1287,9 +1284,9 @@ data ImageSource
   | URIs (Array {uri :: String, width::Int, height :: Int})
 
 sourceWithName :: forall action. String -> ImageSource -> Prop action
-sourceWithName name (ImgURI uri)  = unsafeMkProps name  uri
-sourceWithName name (URIs aryuri) = unsafeMkProps name aryuri
-sourceWithName name (Local path)  = unsafeMkProps name (require path)
+sourceWithName name (ImgURI uri)  = mkProps name  uri
+sourceWithName name (URIs aryuri) = mkProps name aryuri
+sourceWithName name (Local path)  = mkProps name (require path)
 
 source :: forall action. ImageSource -> Prop action
 source = sourceWithName "source"
@@ -1330,12 +1327,12 @@ selectedIcon :: forall action. ImageSource -> Prop action
 selectedIcon = sourceWithName "selectedIcon"
 
 defaultValueNode :: forall action. Element action -> Prop action
-defaultValueNode = unsafeMkProps "defaultValue"
+defaultValueNode = mkProps "defaultValue"
 
 newtype TISelection = TISelection {start :: Int, end :: Int}
 
 selection :: forall action. TISelection -> Prop action
-selection = unsafeMkProps "selection"
+selection = mkProps "selection"
 
 
 foreign import require :: forall a. String -> a
@@ -1360,8 +1357,8 @@ instance showDataDetectorType :: Show DataDetectorType where
 
 
 dataDetectorTypes :: forall action. DataDetectorType -> Prop action
-dataDetectorTypes d = unsafeMkProps "dataDetectorTypes" (show d)
+dataDetectorTypes d = mkProps "dataDetectorTypes" (show d)
 
 
 dataDetectorTypesAry :: forall action. Array DataDetectorType -> Prop action
-dataDetectorTypesAry d = unsafeMkProps "dataDetectorTypes" (map show d)
+dataDetectorTypesAry d = mkProps "dataDetectorTypes" (map show d)
