@@ -5,3 +5,5 @@ repl-temp-*
 bower_components/
 output/
 .pulp*
+node_modules/
+.psc-ide-port
