@@ -7,3 +7,4 @@ output/
 .pulp*
 node_modules/
 .psc-ide-port
+.vscode/
