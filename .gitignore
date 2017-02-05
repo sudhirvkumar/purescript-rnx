@@ -1,10 +1,23 @@
-# elm-package generated files
-elm-stuff/
-# elm-repl generated files
-repl-temp-*
-bower_components/
-output/
-.pulp*
-node_modules/
+*.chi
+*.chs.h
+*.hi
+*.lksh*
+*.o
+.cabal-sandbox
 .psc-ide-port
+.psci_modules/
+.pulp*
+.stack-work/
+.test_modules/
+.virthualenv
 .vscode/
+bower_components/
+cabal-dev
+cabal.sandbox.config
+core-tests/full-core-docs.md
+dist
+examples/docs/docs/
+node_modules/
+output
+repl-temp-*
+tmp/
